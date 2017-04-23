@@ -1,0 +1,9 @@
+Package: adorn
+Type: Package
+Title: misc. Rstudio addons
+Version: 0.0.1
+Authors@R: person("Stefan", "Fleck", email = "stefa.fleck@statistik.gv.at", role = c("aut", "cre"))
+Description: A collection of usefull addons, mainly for hotkey purposes
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
