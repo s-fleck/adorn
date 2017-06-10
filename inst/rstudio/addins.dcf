@@ -9,7 +9,7 @@ Binding: lint_this2
 Interactive: false
 
 Name: Set vertical space to 4 rows
-Description: Sets the vertical space at the curser position to 4 rows by adding
+Description: Sets the vertical space at curser position to 4 rows by adding
   or removing blank lines
 Binding: set_vspace4
 Interactive: false

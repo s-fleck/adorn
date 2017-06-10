@@ -17,8 +17,6 @@ lint_this <- function(...){
 
 
 
-
-
 lint_this2 <- function(...){
   if (!requireNamespace('lintr')){
     stop('Package "lintr" is not available.')

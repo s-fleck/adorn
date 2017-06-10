@@ -21,6 +21,10 @@ set_vspace <- function(spacing){
   runs$row <- cumsum(runs$lengths)
   sel_run <- which((runs$row %/% pos$row) == 1)[[1]]
 
+  if(runs$value[sel_run] == FALSE){
+    sel_run = sel_run + 1L
+  }
+
   pos$run_length <- runs$length[[sel_run]]
   pos$run_start  <- runs$row[[sel_run - 1L]] + 1L
   pos$run_stop   <- runs$row[[sel_run - 1L]] + runs$length[[sel_run]]
