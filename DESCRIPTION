@@ -1,10 +1,10 @@
 Package: adorn
 Type: Package
 Title: misc. Rstudio addons
-Version: 0.0.2.9000
+Version: 0.0.2.9001
 Authors@R: person("Stefan", "Fleck", email = "stefa.fleck@statistik.gv.at", role = c("aut", "cre"))
 Description: A collection of usefull addons, mainly for hotkey purposes
-Imports: assertthat, rstudioapi
+Imports: assertthat, rstudioapi, magrittr
 Suggests: lintr
 License: What license is it under?
 Encoding: UTF-8

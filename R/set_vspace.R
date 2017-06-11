@@ -1,21 +1,34 @@
-#' Title
+#' Set vertical space
 #'
-#' @param spacing
+#' Ensure the a speciefied number of vertical space at a given location in an
+#' R script file.
 #'
-#' @return
+#' @param spacing integer. Number of blank rows desired at position.
+#'   Defaults to `4`.
+#' @param row integer. Row of the document at which to ensure the specified
+#'   number of blank rows. Defaults to the current cursor position.
+#'
 #' @export
-#'
-#' @examples
-set_vspace <- function(spacing){
+#' @md
+set_vspace <- function(
+  spacing = options('adorn.vspace'),
+  row = NULL
+){
   spacing <- as.integer(spacing)
   assert_that(is.number(spacing))
 
   context <- rstudioapi::getSourceEditorContext()
-  doc   <- context$contents
+  doc     <- context$contents
 
-  pos <- list(
-    row = rstudioapi::getSourceEditorContext()$selection[[1]]$range$start[['row']]
-  )
+  if(is.null(row)){
+    pos <- list(
+      row = context$selection[[1]]$range$start[['row']]
+    )
+  } else {
+    pos <- list(
+      row = row
+    )
+  }
 
   runs     <- unclass(base::rle(base::trimws(doc) == ''))
   runs$row <- cumsum(runs$lengths)
@@ -32,6 +45,7 @@ set_vspace <- function(spacing){
   rstudioapi::modifyRange(
     rstudioapi::document_range(
       start = rstudioapi::document_position(pos$run_start, 1L),
+
       end   = rstudioapi::document_position(pos$run_stop, 1L)
     ),
     text = paste(rep('\n', spacing-1L), collapse = ''),
@@ -42,4 +56,43 @@ set_vspace <- function(spacing){
 
 
 
-set_vspace4 <- function() set_vspace(4L)
+#' Set vertical space for entire document
+#'
+#' Sets the vertical space between expressions in an R script file. This is
+#' useful when working with function files in a package's \file{R} direcotry.
+#'
+#' @inheritParams set_vspace
+#'
+#' @return
+#' @export
+#'
+#' @examples
+set_vspace_document <- function(
+  spacing = options('adorn.vspace')
+){
+  context <- rstudioapi::getSourceEditorContext()
+  doc     <- context$contents
+  dat     <- parse(text = doc)
+
+  srcrefs <- attr(dat, "srcref")
+
+  insert_pos <- lapply(srcrefs, function(x){
+    rstudioapi::document_position(
+      row    = x[[3]] + 1L,
+      column = 1L)
+  }) %>%
+    rev()
+
+
+  # Insert newline after each function
+  lapply(insert_pos, rstudioapi::insertText, text = '\n', id = context$id)
+  vspace_rows <- vapply(insert_pos, `[[`, double(1), 1L)
+
+  # Expand vspace to param spacing
+  vspace_rows <- vspace_rows + (rev(seq_along(vspace_rows)) - 1L)  # account for inserted newlines
+  lapply(vspace_rows, function(x) set_vspace(spacing = spacing, row = x))
+
+  # Ensure document ends with a single newline
+  last_row <- length(rstudioapi::getSourceEditorContext()$contents)
+  set_vspace(1L, row = last_row)
+}
