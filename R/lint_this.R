@@ -11,7 +11,7 @@ lint_this <- function(...){
     fname <-  rstudioapi::getSourceEditorContext()$path
   }
 
-  print(lint(fname, ...))
+  print(lintr::lint(fname, ...))
 }
 
 
@@ -34,5 +34,5 @@ lint_this2 <- function(...){
     fname <-  rstudioapi::getSourceEditorContext()$path
   }
 
-  print(lint(fname, linters = sel_linters, ...))
+  print(lintr::lint(fname, linters = sel_linters, ...))
 }
