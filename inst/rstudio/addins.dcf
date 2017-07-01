@@ -22,3 +22,17 @@ Description: Sets the vertical space at curser position to 4 rows by adding
   or removing blank lines
 Binding: set_vspace_document
 Interactive: false
+
+
+Name: Copy data.frame
+Description: Copy a data.frame to the windows clipboard as tab-separated table
+  (for use in spreadhseat applications)
+Binding: write_clipboard
+Interactive: false
+
+
+Name: Paste data.frame
+Description: Copys a tab sepparated table from the clipboard and assigns it to
+  the object adorn_clip in the global environment
+Binding: paste_clipboard
+Interactive: false
