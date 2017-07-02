@@ -32,7 +32,11 @@ set_vspace <- function(
 
   runs     <- unclass(base::rle(base::trimws(doc) == ''))
   runs$row <- cumsum(runs$lengths)
-  sel_run <- which((runs$row %/% pos$row) == 1)[[1]]
+
+  # Find start of empty run
+  assert_that(!is.unsorted(runs$row))
+  assert_that(is.number(pos$row))
+  sel_run  <- sum(runs$row <= pos$row)
 
   if(runs$value[sel_run] == FALSE){
     sel_run = sel_run + 1L
@@ -45,7 +49,6 @@ set_vspace <- function(
   rstudioapi::modifyRange(
     rstudioapi::document_range(
       start = rstudioapi::document_position(pos$run_start, 1L),
-
       end   = rstudioapi::document_position(pos$run_stop, 1L)
     ),
     text = paste(rep('\n', spacing-1L), collapse = ''),
