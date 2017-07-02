@@ -14,8 +14,7 @@
 #' @md
 #'
 read_clipboard_tab <- function(header = FALSE, ...){
-  assert_windows_os()
-
+  assert_that(is_running_windows())
   read.table(file = "clipboard", sep = "\t", header = header, ...)
 }
 
@@ -51,7 +50,7 @@ paste_clipboard <- function(header = FALSE, ...){
 #' @export
 #'
 write_clipboard <- function(x, ...){
-  assert_windows_os()
+  assert_that(is_running_windows())
   UseMethod('write_clipboard')
 }
 
@@ -81,14 +80,4 @@ write_clipboard.data.frame <- function(
 ){
   write.table(x, "clipboard", row.names = row.names, sep = "\t", ...)
   invisible(x)
-}
-
-
-
-
-assert_windows_os <- function(){
-  os <- Sys.info()['sysname']
-  if(!identical(os, 'Windows')){
-    stop('Reading and writing from clipboard is only supported under Windows')
-  }
 }
