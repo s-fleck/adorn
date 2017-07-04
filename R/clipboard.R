@@ -13,9 +13,17 @@
 #' @export
 #' @md
 #'
-read_clipboard_tab <- function(header = FALSE, ...){
+read_clipboard_tab <- function(
+  header = FALSE,
+  stringsAsFactors = FALSE,
+  ...
+){
   assert_that(is_running_windows())
-  read.table(file = "clipboard", sep = "\t", header = header, ...)
+  read.table(
+    file = "clipboard",
+    sep = "\t", header = header,
+    stringsAsFactors = stringsAsFactors,
+    ...)
 }
 
 
