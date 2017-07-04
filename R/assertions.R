@@ -1,5 +1,5 @@
 is_running_windows <- function(x){
-  identical(Sys.info()['sysname'], 'Windows')
+  Sys.info()['sysname'] == 'Windows'
 }
 
 
