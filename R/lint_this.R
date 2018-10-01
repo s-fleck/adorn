@@ -1,8 +1,16 @@
+#' Title
+#'
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
 lint_this <- function(...){
-  if (!requireNamespace('lintr')){
-    stop('Package "lintr" is not available.')
-  } else if (!requireNamespace('rstudioapi')){
-    stop('Package "rstudioapi" is not available.')
+  if (!requireNamespace("lintr")){
+    stop("Package 'lintr' is not available.")
+  } else if (!requireNamespace("rstudioapi")){
+    stop("Package 'rstudioapi' is not available.")
   }
 
   fname <- rstudioapi::getActiveDocumentContext()$path
@@ -17,6 +25,14 @@ lint_this <- function(...){
 
 
 
+#' Title
+#'
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
 lint_this2 <- function(...){
   if (!requireNamespace('lintr')){
     stop('Package "lintr" is not available.')
