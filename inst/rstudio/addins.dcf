@@ -36,3 +36,15 @@ Description: Copys a tab sepparated table from the clipboard and assigns it to
   the object adorn_clip in the global environment
 Binding: paste_clipboard
 Interactive: false
+
+
+Name: initialize defaults
+Description: execute defaults function
+Binding: init
+Interactive: false
+
+
+Name: Convert slash
+Description: switches the orientation of slashes
+Binding: flip_slash
+Interactive: false
